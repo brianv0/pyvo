@@ -1,6 +1,4 @@
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
-from astropy.extern import six
-
 from astropy.utils.collections import HomogeneousList
 
 from ...utils.xml.elements import xmlelement, Element
@@ -31,7 +29,7 @@ class Availability(Element):
         self._upsince = None
         self._downat = None
         self._backat = None
-        self._notes = HomogeneousList(six.text_type)
+        self._notes = HomogeneousList(str)
 
     @xmlelement(plain=True, multiple_exc=W32)
     def available(self):

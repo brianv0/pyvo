@@ -5,7 +5,7 @@ Tests for pyvo.dal.query
 """
 from functools import partial
 
-from six.moves.urllib.parse import parse_qsl
+from urllib.parse import parse_qsl
 import pytest
 
 from pyvo.registry import search as regsearch

@@ -3,8 +3,6 @@
 This file contains a contains the high-level functions to read the various
 VOSI Endpoints.
 """
-from astropy.extern import six
-
 from astropy.utils.xml import iterparser
 from astropy.utils.xml.writer import XMLWriter
 from astropy.io.votable.util import convert_to_writable_filelike
@@ -52,7 +50,7 @@ def parse_job(
         'filename': filename
     }
 
-    if filename is None and isinstance(source, six.string_types):
+    if filename is None and isinstance(source, str):
         config['filename'] = source
 
     with iterparser.get_xml_iterator(

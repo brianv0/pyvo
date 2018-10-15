@@ -32,7 +32,6 @@ import re
 
 from pyvo.io.vosi.vodataservice import TableParam
 
-from astropy.extern import six
 from astropy.coordinates import SkyCoord
 from astropy.time import Time
 from astropy.units import Quantity, Unit
@@ -498,7 +497,7 @@ class SIAQuery(DALQuery):
     def format(self, format_):
         setattr(self, "_format", format_)
 
-        if type(format_) in (six.text_type, six.binary_type):
+        if isinstance(format_, (str, bytes)):
             format_ = [format_]
 
         self["FORMAT"] = ",".join(_.upper() for _ in format_)
@@ -893,7 +892,7 @@ class SIARecord(SodaRecordMixin, DatalinkRecordMixin, Record):
         ``make_dataset_filename()``.
         """
         out = self.title
-        if type(out) == six.binary_type:
+        if isinstance(out, bytes):
             out = out.decode('utf-8')
 
         if not out:

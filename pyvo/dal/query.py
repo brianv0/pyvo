@@ -24,7 +24,6 @@ __all__ = ["DALService", "DALQuery", "DALResults", "Record"]
 
 import os
 import shutil
-import re
 import requests
 try:
     from collections.abc import Mapping
@@ -34,7 +33,6 @@ import collections
 
 from warnings import warn
 
-from astropy.extern import six
 from astropy.table.table import Table
 from astropy.io.votable import parse as votableparse
 from astropy.io.votable.ucd import parse_ucd
@@ -128,7 +126,7 @@ class DALQuery(dict):
         """
         initialize the query object with a baseurl
         """
-        if type(baseurl) == six.binary_type:
+        if isinstance(baseurl, bytes):
             baseurl = baseurl.decode("utf-8")
 
         self._baseurl = baseurl.rstrip("?")
@@ -647,7 +645,7 @@ class Record(Mapping):
         """
         out = self._mapping.get(key, default)
 
-        if decode and isinstance(out, six.binary_type):
+        if decode and isinstance(out, bytes):
             out = out.decode('ascii')
 
         return out
@@ -690,7 +688,7 @@ class Record(Mapping):
                     "meta.ref.url" in field.ucd
             ):
                 out = self[fieldname]
-                if isinstance(out, six.binary_type):
+                if isinstance(out, bytes):
                     out = out.decode('utf-8')
                 return out
         return None
@@ -1004,7 +1002,7 @@ class Upload(object):
             self._content.raise_if_error()
             uri = self._content.result_uri
         else:
-            uri = six.text_type(self._content)
+            uri = str(self._content)
 
         return uri
 
@@ -1039,13 +1037,3 @@ class UploadList(list):
         Returns a string suitable for use in UPLOAD parameters
         """
         return ";".join(upload.query_part() for upload in self)
-
-
-if six.PY3:
-    _image_mt_re = re.compile(b'^image/(\w+)')
-    _text_mt_re = re.compile(b'^text/(\w+)')
-    _votable_mt_re = re.compile(b'^(\w+)/(x-)?votable(\+\w+)?')
-else:
-    _image_mt_re = re.compile(r'^image/(\w+)')
-    _text_mt_re = re.compile(r'^text/(\w+)')
-    _votable_mt_re = re.compile(r'^(\w+)/(x-)?votable(\+\w+)?')

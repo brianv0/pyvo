@@ -12,7 +12,7 @@ except ImportError:
 import re
 from io import BytesIO
 
-from six.moves.urllib.parse import parse_qsl
+from urllib.parse import parse_qsl
 import pytest
 import requests_mock
 

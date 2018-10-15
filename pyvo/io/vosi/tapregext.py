@@ -1,6 +1,4 @@
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
-from astropy.extern import six
-
 from astropy.utils.collections import HomogeneousList
 from astropy.utils.misc import indent
 
@@ -59,7 +57,7 @@ class OutputFormat(Element):
         ivo_id = kwargs.get('ivo-id')
 
         self.mime = None
-        self._aliases = HomogeneousList(six.text_type)
+        self._aliases = HomogeneousList(str)
         self.ivo_id = ivo_id
 
     def __repr__(self):

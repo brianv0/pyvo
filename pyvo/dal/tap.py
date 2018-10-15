@@ -9,7 +9,6 @@ from distutils.version import LooseVersion
 
 import requests
 
-from astropy.extern import six
 from astropy.io.votable import parse as votableparse
 
 from .query import (
@@ -316,7 +315,7 @@ class TAPService(DALService, AvailabilityMixin, CapabilityMixin):
             print()
 
         capabilities = filter(
-            lambda x: not six.text_type(x.standardid).startswith(
+            lambda x: not str(x.standardid).startswith(
                 'ivo://ivoa.net/std/VOSI'),
             self.capabilities
         )

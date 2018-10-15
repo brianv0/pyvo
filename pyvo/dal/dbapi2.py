@@ -4,10 +4,8 @@ An implementation of the Database API v2.0 interface to DAL VOTable responses.
 This only supports read-only access.  
 """
 from .query import Iter
-from astropy.extern import six
 
-if six.PY3:
-    StandardError = Exception
+StandardError = Exception
 
 apilevel = "2.0"
 threadsafety = 2

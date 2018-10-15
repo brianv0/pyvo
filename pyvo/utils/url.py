@@ -2,7 +2,7 @@
 """
 URL utils
 """
-from six.moves.urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse, urlunparse
 from os.path import split as pathsplit, join as pathjoin
 
 

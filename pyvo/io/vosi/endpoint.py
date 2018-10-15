@@ -3,8 +3,6 @@
 This file contains a contains the high-level functions to read the various
 VOSI Endpoints.
 """
-from astropy.extern import six
-
 from astropy.utils.xml import iterparser
 from astropy.utils.collections import HomogeneousList
 from astropy.io.votable.exceptions import vo_raise, vo_warn
@@ -58,7 +56,7 @@ def parse_tables(source, pedantic=None, filename=None,
         'filename': filename
     }
 
-    if filename is None and isinstance(source, six.string_types):
+    if filename is None and isinstance(source, str):
         config['filename'] = source
 
     with iterparser.get_xml_iterator(
@@ -105,7 +103,7 @@ def parse_capabilities(source, pedantic=None, filename=None,
         'filename': filename
     }
 
-    if filename is None and isinstance(source, six.string_types):
+    if filename is None and isinstance(source, str):
         config['filename'] = source
 
     with iterparser.get_xml_iterator(
@@ -152,7 +150,7 @@ def parse_availability(source, pedantic=None, filename=None,
         'filename': filename
     }
 
-    if filename is None and isinstance(source, six.string_types):
+    if filename is None and isinstance(source, str):
         config['filename'] = source
 
     with iterparser.get_xml_iterator(

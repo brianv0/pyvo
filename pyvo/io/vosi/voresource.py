@@ -13,8 +13,6 @@ Elements with complex content are parsed with objects inherited from `Element`.
 Elements with simple content are parsed with objects inherited from `Element`
 defining a `value` property.
 """
-from astropy.extern import six
-
 from astropy.utils.collections import HomogeneousList
 from astropy.utils.misc import indent
 
@@ -471,7 +469,7 @@ class WebService(Interface):
     def __init__(self, config=None, pos=None, _name='interface', **kwargs):
         super(WebService, self).__init__(config, pos, _name, **kwargs)
 
-        self._wsdlurls = HomogeneousList(six.text_type)
+        self._wsdlurls = HomogeneousList(str)
 
     @xmlelement(name='wsdlURL')
     def wsdlurls(self):

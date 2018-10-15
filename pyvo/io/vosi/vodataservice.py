@@ -15,8 +15,6 @@ defining a `value` property.
 """
 import re
 
-from astropy.extern import six
-
 from astropy.utils.collections import HomogeneousList
 from astropy.utils.misc import indent
 from astropy.utils.xml import check as xml_check
@@ -256,7 +254,7 @@ class ParamHTTP(vr.Interface):
         super(ParamHTTP, self).__init__(
                 config=config, pos=pos, _name=_name, **kwargs)
 
-        self._querytypes = HomogeneousList(six.text_type)
+        self._querytypes = HomogeneousList(str)
         self._resulttype = None
 
     @xmlelement(name='queryType', multiple_exc=W17)
@@ -562,7 +560,7 @@ class TableParam(BaseParam):
                 config=config, pos=pos, _name=_name, **kwargs)
 
         self._datatype = None
-        self._flags = HomogeneousList(six.text_type)
+        self._flags = HomogeneousList(str)
         self._std = _convert_boolean(std)
 
     @xmlelement(name='dataType')
@@ -589,7 +587,7 @@ class TableParam(BaseParam):
     @xmlelement(name='flag')
     def flags(self):
         """
-        A list of flags. Must contain only `six.text_type` objects.
+        A list of flags. Must contain only `str` objects.
 
         a keyword representing traits of the column. Recognized values include
         "indexed", "primary", and "nullable".

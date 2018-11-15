@@ -17,6 +17,7 @@ standardized TAP-based services.
 """
 import os
 from ..dal import scs, sia, ssa, sla, tap, query as dalq
+from ..utils.formatting import para_format_desc
 
 __all__ = ["search", "RegistryResource", "RegistryResults", "ivoid2service"]
 
@@ -383,7 +384,7 @@ class RegistryResource(dalq.Record):
             Otherwise, it is written to standard out.
         """
         restype = "Custom Service"
-        stdid = self.get("standard_id").lower()
+        stdid = self.get("standard_id").decode().lower()
         if stdid:
             if stdid.startswith("ivo://ivoa.net/std/conesearch"):
                 restype = "Catalog Cone-search Service"
@@ -397,7 +398,7 @@ class RegistryResource(dalq.Record):
                 restype = "Table Access Protocol Service"
 
         print(restype, file=file)
-        print(dalq.para_format_desc(self.res_title), file=file)
+        print(para_format_desc(self.res_title), file=file)
         print("Short Name: " + self.short_name, file=file)
         print("IVOA Identifier: " + self.ivoid, file=file)
         if self.access_url:
@@ -405,17 +406,17 @@ class RegistryResource(dalq.Record):
 
         if self.res_description:
             print(file=file)
-            print(dalq.para_format_desc(self.res_description), file=file)
+            print(para_format_desc(self.res_description), file=file)
             print(file=file)
 
         if self.short_name:
             print(
-                dalq.para_format_desc("Subjects: {}".format(self.short_name)),
+                para_format_desc("Subjects: {}".format(self.short_name)),
                 file=file)
         if self.waveband:
             val = (str(v) for v in self.waveband)
             print(
-                dalq.para_format_desc("Waveband Coverage: " + ", ".join(val)),
+                para_format_desc("Waveband Coverage: " + ", ".join(val)),
                 file=file)
 
         if verbose:
